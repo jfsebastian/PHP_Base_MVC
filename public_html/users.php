@@ -4,8 +4,13 @@ define ("DOCUMENT_ROOT", $_SERVER['DOCUMENT_ROOT']);
 
 require_once("../application/models/applicationModel.php");
 require_once("../application/models/usersModel.php");
+require_once("../application/models/usersDBModel.php");
+require_once("../application/models/mysqlModel.php");
+require_once("../application/models/debugModel.php");
 
 $config = readConfig('../application/configs/config.ini', 'production');
+
+$cnx=connect($config);
 
 // Initializing variables
 $arrayUser = initArrayUser();
@@ -26,7 +31,7 @@ switch($action)
 			exit();
 		}
 		else
-			$arrayUser=readUser($_GET['id'], $config);
+			$arrayUser=readUserFromFile($_GET['id'], $config);
 		// CAUTION: There is no break; here!!!!!!!!!!
 	case 'insert':
 		if($_POST)
@@ -43,7 +48,7 @@ switch($action)
 		if($_POST)
 		{
 			if($_POST['submit']=='yes')
-				deleteUser($_GET['id'], $config);
+				deleteUserFromFile($_GET['id'], $config);
 			header("Location: users.php?action=select");
 			exit();
 		}
@@ -51,7 +56,7 @@ switch($action)
 			$content = renderView("delete", array(), $config);
 		break;
 	case 'select':
-		$arrayUsers = readUsersFromFile($config);
+		$arrayUsers = readUsers($cnx);
 		$content = renderView("select", array('arrayUsers'=>$arrayUsers), $config);
 	default:
 		break;

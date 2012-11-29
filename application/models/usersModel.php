@@ -33,7 +33,7 @@ function uploadImage($_FILES, $config)
  */
 function updateImage($_FILES, $id, $config)
 {
-	$arrayUser=readUser($id,$config);
+	$arrayUser=readUserFromFile($id,$config);
 	$image=trim($arrayUser[9]);
 	if(!$_FILES['photo']['error'])
 	{
@@ -154,7 +154,7 @@ function writeUsersToFile($arrayUsers, $config)
  * @param array $config Config variables
  * @return string: 
  */
-function readUser($id, $config)
+function readUserFromFile($id, $config)
 {
 	// Read users
 	$arrayUsers=readUsersFromFile($config);
@@ -194,9 +194,9 @@ function initArrayUser()
  * @param int $id User id
  * @param array $config Config variables
  */
-function deleteUser($id, $config)
+function deleteUserFromFile($id, $config)
 {
-	$arrayUser = readUser($id, $config);
+	$arrayUser = readUserFromFile($id, $config);
 	
 	// Delete user photo
 	$image = $arrayUser[9];
