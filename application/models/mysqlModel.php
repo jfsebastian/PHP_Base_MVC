@@ -17,8 +17,8 @@ function connect($config)
     {
         echo $e->getMessage();
     }
-	
-	return $db_connection;
+
+    return $db_connection;
 }
 
 function disconnect($cnx)
@@ -28,11 +28,12 @@ function disconnect($cnx)
 
 function query($cnx, $sql)
 {
-
+	$arrayData=array();
+	
     try
     {
 		// Perform Query
-		$result = mysql_query($query,$cnx);
+		$result = mysql_query($sql,$cnx);
 		if (!$result)
 			throw new Exception('MySQL Query Error: ' . mysql_error());
 		else 
