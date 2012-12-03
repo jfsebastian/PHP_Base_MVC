@@ -15,7 +15,7 @@ switch($action)
 		{
 			$imageName = updateImage($_FILES, $_GET['id'], $config);
 			updateUser($arrayData, $_GET['id'], $cnx, $imageName);
-			header("Location: users.php?action=select");
+			header("Location: index.php?controller=users&action=select");
 			exit();
 		}
 		else
@@ -38,7 +38,7 @@ switch($action)
 		{
 			$imageName = (!$_FILES['photo']['error'] ? uploadImage($_FILES, $config) : '');
 			$id=insertUser($_POST, $cnx, $imageName);
-			header("Location: users.php?action=select");
+			header("Location: index.php?controller=users&action=select");
 			exit();
 		}
 		else
@@ -61,7 +61,7 @@ switch($action)
 		{
 			if($_POST['submit']=='yes')
 				deleteUser($_GET['id'], $cnx);
-			header("Location: users.php?action=select");
+			header("Location: index.php?controller=users&action=select");
 			exit();
 		}
 		else

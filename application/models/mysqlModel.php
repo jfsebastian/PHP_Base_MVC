@@ -54,7 +54,8 @@ function query($sql, $cnx)
 	
 	// Free the resources associated with the result set
 	// This is done automatically at the end of the script
-	mysql_free_result($result);
+	if(is_resource($result))
+		mysql_free_result($result);
 	
 	return $arrayData;
 }

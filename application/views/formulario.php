@@ -12,7 +12,7 @@ $arrayUserLanguages=$params['arrayUserLanguages'];
 ?>
 
 <form method="POST" enctype="multipart/form-data">
-<input type="hidden" name="id" value="<?=$arrayUser['userid']?>"/>
+<input type="hidden" name="id" value="<?=$arrayUser['id']?>"/>
 <ul>
 <li>Name: <input type="text" name="name" value="<?=htmlspecialchars($arrayUser['name'])?>"/></li>
 <li>E-mail: <input type="text" name="email" value="<?=htmlspecialchars($arrayUser['email'])?>"/></li>

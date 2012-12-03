@@ -63,40 +63,39 @@ function readUser($id, $cnx)
 
 function insertUser($arrayData, $cnx, $imageName)
 {
-	
 	$sql="INSERT INTO users SET
-			name = '".$arrayData['name']."',
-			email = '".$arrayData['email']."',
-			cities_idcity = '".$arrayData['city']."',
-			description = '".$arrayData['description']."',
-			password = '".$arrayData['password']."',
-			coders = '".$arrayData['coder']."',
+			name = '".(array_key_exists('name',$arrayData) ? $arrayData['name']: '')."',
+			email = '".(array_key_exists('email',$arrayData) ? $arrayData['email']: '')."',
+			cities_idcity = '".(array_key_exists('city',$arrayData) ? $arrayData['city']: '')."',
+			description = '".(array_key_exists('description',$arrayData) ? $arrayData['description']: '')."',
+			password = '".(array_key_exists('password',$arrayData) ? $arrayData['password']: '')."',
+			coders = '".(array_key_exists('coder',$arrayData) ? $arrayData['coder']: '')."',
 			photo = '".$imageName."';
 		 ";
 	query($sql,$cnx);
 	$sql="SELECT LAST_INSERT_ID() as id;";
 	$array=query($sql,$cnx);
-	$id=$array[0]['id'];
+	$iduser=$array[0]['id'];
 	
-	foreach($arrayData['pets'] as $pets)
+	foreach($arrayData['pets'] as $idpet)
 	{
 		$sql="INSERT INTO users_has_pets SET
-				users_iduser = '".$id."',
-				users_idpet = '".$pets['id']."';
-			 ";
-		query($sql,$cnx);
-	}
-
-	foreach($arrayData['languages'] as $languages)
-	{
-		$sql="INSERT INTO users_has_languages SET
-				users_iduser = '".$id."',
-				users_idlanguage = '".$languages['id']."';
+				users_iduser = '".$iduser."',
+				pets_idpet = '".$idpet."';
 			 ";
 		query($sql,$cnx);
 	}
 	
-	return $id;
+	foreach($arrayData['languages'] as $idlanguage)
+	{
+		$sql="INSERT INTO users_has_languages SET
+				users_iduser = '".$iduser."',
+				languages_idlanguage = '".$idlanguage."';
+			 ";
+		query($sql,$cnx);
+	}
+	
+	return $iduser;
 }
 
 function updateUser($arrayData, $id, $cnx, $imageName)
