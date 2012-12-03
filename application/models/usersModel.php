@@ -168,19 +168,20 @@ function readUserFromFile($id, $config)
  * Initialize user array with keys
  * @return array: User array initialized
  */
-function initArrayUserWithKeys()
+function initArrayUser()
 {
-	$keys=array('id','name','email','pass','desc','pet','city','coder','languages');
+	$keys=array('id','name','email','password','description','pet','city','coder','languages','photo');
 	$arrayUser=array();
 	foreach($keys as $key)
 		$arrayUser[$key]=NULL;
 	return $arrayUser;
 }
 
+/*
 /**
  * Initialize user array
  * @return array: User array initialized
- */
+ 
 function initArrayUser()
 {
 	$arrayUser=array();
@@ -188,6 +189,7 @@ function initArrayUser()
 		$arrayUser[$i]=NULL;
 	return $arrayUser;
 }
+*/
 
 /**
  * Delete user from file and image from directory

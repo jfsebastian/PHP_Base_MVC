@@ -26,7 +26,7 @@ function disconnect($cnx)
 	return FALSE/TRUE;
 }
 
-function query($cnx, $sql)
+function query($sql, $cnx)
 {
 	$arrayData=array();
 	
@@ -38,10 +38,13 @@ function query($cnx, $sql)
 			throw new Exception('MySQL Query Error: ' . mysql_error());
 		else 
 		{
-			while($row=mysql_fetch_array($result,MYSQL_ASSOC))
-			{
-				$arrayData[]=$row;
-			}
+			if(is_resource($result))
+				while($row=mysql_fetch_array($result,MYSQL_ASSOC))
+				{
+					$arrayData[]=$row;
+				}
+			else 
+				$arrayData[]=$result;
 		}
 	}
 	catch (Exception $e)

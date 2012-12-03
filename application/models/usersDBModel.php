@@ -4,15 +4,24 @@ function readUserPets($id,$cnx)
 {
 	$arrayPets = array();
 	
+	/* La consulta que sugiere Agustin es:
+	$sql = "SELECT pet
+			FROM users
+			LEFT JOIN users_has_pets
+					  ON users.iduser=users_has_pets.users_iduser
+			LEFT JOIN pets
+					  ON users_has_pets.pets=pets_idpet.pets.idpet
+			WHERE iduser=".$user['iduser'];
+	 */
 	$sql = "SELECT pet
 			FROM pets
 			INNER JOIN users_has_pets ON
 				  users_has_pets.users_iduser=".$id." AND
 				  users_has_pets.pets_idpet=pets.idpet;";
-	$results = query($cnx,$sql);
+	$results = query($sql,$cnx);
 	foreach ($results as $result)
 		$arrayPets[] = $result['pet'];
-	return implode(",",$arrayPets);
+	return $arrayPets;
 }
 
 function readUserLanguages($id,$cnx)
@@ -24,10 +33,10 @@ function readUserLanguages($id,$cnx)
 			INNER JOIN users_has_languages ON
 				  users_has_languages.users_iduser=".$id." AND
 				  users_has_languages.languages_idlanguage=languages.idlanguage;";
-	$results = query($cnx,$sql);
+	$results = query($sql,$cnx);
 	foreach ($results as $result)
 		$arrayLanguages[] = $result['language'];
-	return implode(",",$arrayLanguages);
+	return $arrayLanguages;
 }
 
 function readUsers($cnx)
@@ -36,11 +45,13 @@ function readUsers($cnx)
 			FROM users
 			INNER JOIN cities ON
 				  users.cities_idcity=cities.idcity;";
-	$arrayUsers = query($cnx,$sql);
-	for($i=0;$i<count($arrayUsers);$i++)
+	$arrayUsers = query($sql,$cnx);
+	foreach($arrayUsers as $key => $user)
 	{
-		$arrayUsers[$i]['pets'] = readUserPets($arrayUsers[$i]['iduser'],$cnx);
-		$arrayUsers[$i]['languages'] = readUserLanguages($arrayUsers[$i]['iduser'],$cnx);
+		$arrayUsers[$key]['pets'] = implode(",",
+										readUserPets($arrayUsers[$key]['iduser'],$cnx));
+		$arrayUsers[$key]['languages'] = implode(",",
+										readUserLanguages($arrayUsers[$key]['iduser'],$cnx));
 	}
 	return $arrayUsers;
 }
@@ -50,14 +61,45 @@ function readUser($id, $cnx)
 	return $arrayUser;
 }
 
-function insertUser($arrayData, $cnx)
+function insertUser($arrayData, $cnx, $imageName)
 {
-	$sql="INSERT * FROM users";
-	$arrayUsers = query($cnx,$sql);
-	return $lastID;
+	
+	$sql="INSERT INTO users SET
+			name = '".$arrayData['name']."',
+			email = '".$arrayData['email']."',
+			cities_idcity = '".$arrayData['city']."',
+			description = '".$arrayData['description']."',
+			password = '".$arrayData['password']."',
+			coders = '".$arrayData['coder']."',
+			photo = '".$imageName."';
+		 ";
+	query($sql,$cnx);
+	$sql="SELECT LAST_INSERT_ID() as id;";
+	$array=query($sql,$cnx);
+	$id=$array[0]['id'];
+	
+	foreach($arrayData['pets'] as $pets)
+	{
+		$sql="INSERT INTO users_has_pets SET
+				users_iduser = '".$id."',
+				users_idpet = '".$pets['id']."';
+			 ";
+		query($sql,$cnx);
+	}
+
+	foreach($arrayData['languages'] as $languages)
+	{
+		$sql="INSERT INTO users_has_languages SET
+				users_iduser = '".$id."',
+				users_idlanguage = '".$languages['id']."';
+			 ";
+		query($sql,$cnx);
+	}
+	
+	return $id;
 }
 
-function updateUser($arrayData, $id, $cnx)
+function updateUser($arrayData, $id, $cnx, $imageName)
 {
 	return $numRows;
 }
@@ -65,5 +107,39 @@ function updateUser($arrayData, $id, $cnx)
 function deleteUser($id, $cnx)
 {
 	return $numRows;
+}
+
+function readPets($cnx)
+{
+	$sql="SELECT idpet AS id, pet AS value
+			FROM pets";
+	$arrayPets = query($sql,$cnx);
+	return $arrayPets;
+}
+
+function readLanguages($cnx)
+{
+	$sql="SELECT idlanguage AS id, language AS value
+			FROM languages";
+	$arrayLanguages = query($sql,$cnx);
+	return $arrayLanguages;
+}
+
+function readCoders($cnx)
+{
+	//FIXME: Normalizar las tablas
+	
+	$sql="SELECT coder AS id, coder AS value
+			FROM coders";
+	$arrayCoders = query($sql,$cnx);
+	return $arrayCoders;
+}
+
+function readCities($cnx)
+{
+	$sql="SELECT idcity AS id, city AS value
+			FROM cities";
+	$arrayCities = query($sql,$cnx);
+	return $arrayCities;
 }
 ?>
