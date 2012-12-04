@@ -117,7 +117,7 @@ function acl($arrayRequest, $role, $cnx)
 	
 	foreach ($resources as $resource)
 	{
-		arrayResources[]=$resource['resource'];
+		$arrayResources[]=$resource['resource'];
 	}
 	
 	if(in_array("/".$arrayRequest['controller']."/".$arrayRequest['action'], $arrayResources))
