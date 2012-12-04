@@ -63,4 +63,71 @@ function renderView($view, array $params, $config)
 	ob_end_clean();
 	return $content;
 }
+
+function renderLayout($layout, array $params, $config)
+{
+	ob_start();
+	include($config['layoutsDirectory']."/".$layout.".php");
+	$content=ob_get_contents();
+	ob_end_clean();
+	return $content;
+}
+
+function setRequest()
+{
+	$uri=(explode('/', $_SERVER['REQUEST_URI']));
+	
+	if($uri[1]!='')
+		if(file_exists(APPLICATION_PATH."/controllers/".$uri[1].".php"))
+		{
+			if(isset($uri[1]))
+				$_GET['controller']=$uri[1];
+			else
+				$_GET['controller']='index';
+			if(isset($uri[2]))
+				$_GET['action']=$uri[2];
+			else
+				$_GET['action']='index';
+		}
+		else
+		{
+			$_GET['controller']='error';
+			$_GET['action']='404';
+		}
+	else
+	{
+		$_GET['controller']='index';
+		$_GET['action']='index';
+	}
+	$arrayRequest=array('controller'=>$_GET['controller'],
+						'action'=>$_GET['action']);
+	
+	return $arrayRequest;
+}
+
+function acl($arrayRequest, $role, $cnx)
+{
+
+	$sql="SELECT resource
+			FROM resources
+			LEFT JOIN roles_has_resources
+					ON resources.idresource=roles_has_resources.resources_idresource
+			WHERE roles_has_resources.roles_idrole=".$role.";";
+	$resources = query($sql,$cnx);
+	
+	foreach ($resources as $resource)
+	{
+		arrayResources[]=$resource['resource'];
+	}
+	
+	if(in_array("/".$arrayRequest['controller']."/".$arrayRequest['action'], $arrayResources))
+		$arrayRequest=$arrayRequest;
+	elseif (in_array("/".$arrayRequest['controller'], $arrayResources))
+			$arrayRequest=$arrayRequest;
+	else {
+		$arrayRequest['controller']='error';
+		$arrayRequest['action']='403';
+	}
+	return $arrayRequest;
+}
 ?>

@@ -58,6 +58,10 @@ function readUsers($cnx)
 
 function readUser($id, $cnx)
 {
+	$sql = "SELECT *
+			FROM users
+			WHERE iduser=".$id.";";
+	$arrayUser = query($sql,$cnx);
 	return $arrayUser;
 }
 

@@ -56,7 +56,7 @@
 		<!-- Content (Right Column) -->
 		<div id="content" class="box">
  			<?php //include("../application/layouts/partials/content.php")?>
- 			<?=$params['content'];?>
+ 			<?=$params['content']';?>
 		</div> <!-- /content -->
 
 	</div> <!-- /cols -->

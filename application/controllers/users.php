@@ -3,12 +3,7 @@
 // Initializing variables
 $arrayUser = initArrayUser();
 
-if(isset($_GET['action']))
-	$action = $_GET['action'];
-else 
-	$action = 'select';
-
-switch($action)
+switch($arrayRequest['action'])
 {
 	case 'update':
 		if($_POST)
@@ -53,7 +48,7 @@ switch($action)
 						  'arrayDataLanguages'=>readLanguages($cnx),
 						  'arrayUserLanguages'=>array(),
 						 );
-			$content = renderView("formulario", $params, $config);
+			$content = renderView("users/formulario", $params, $config);
 		}
 		break;
 	case 'delete':
@@ -66,15 +61,17 @@ switch($action)
 		}
 		else
 		{
-			$content = renderView("delete", array(), $config);
+			$content = renderView("users/delete", array(), $config);
 		}
 		break;
 	case 'select':
 		$arrayUsers = readUsers($cnx);
 		$params=array('arrayUsers'=>$arrayUsers);
-		$content = renderView("select", $params, $config);
+		$content = renderView("users/select", $params, $config);
 	default:
 		break;
 }
-include("../application/layouts/layout_admin1.php");
+$params = array('userName'=>'Agustin',
+				'content'=>$content);
+echo renderLayout("layout_admin1.php", $params, $config);
 ?>
