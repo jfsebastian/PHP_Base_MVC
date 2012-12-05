@@ -1,6 +1,6 @@
 <?php $arrayUsers=$params['arrayUsers']?>
 
-<a href="?controller=users&action=insert">Agregar</a>
+<a href="/users/insert">Agregar</a>
 <table border =1>
 	<tr>
 		<th>Id</th><th>Name</th><th>E-mail</th><th>Password</th><th>Description</th><th>Pets</th>
@@ -19,8 +19,8 @@
 			<td><?=nl2br(htmlspecialchars($arrayUsers[$key]['languages']));?></td>
 			<td><?=nl2br(htmlspecialchars($arrayUsers[$key]['photo']));?></td>
 			<td>
-			<a href="?controller=users&action=update&id=<?=$arrayUsers[$key]['iduser']?>">Editar</a>
-			<a href="?controller=users&action=delete&id=<?=$arrayUsers[$key]['iduser']?>">Borrar</a>
+			<a href="/users/update&id=<?=$arrayUsers[$key]['iduser']?>">Editar</a>
+			<a href="/users/delete&id=<?=$arrayUsers[$key]['iduser']?>">Borrar</a>
 			</td>
 		</tr>
 	<?php endforeach;?>

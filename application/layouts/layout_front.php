@@ -29,11 +29,6 @@
 
 <div id="main">
 
-	<!-- Tray -->
-	<div id="tray" class="box">
-		<?php include("../application/layouts/partials/tray.php")?>
-	</div> <!--  /tray -->
-
 	<hr class="noscreen" />
 
 	<!-- Menu -->
@@ -45,11 +40,6 @@
 
 	<!-- Columns -->
 	<div id="cols" class="box">
-
-		<!-- Aside (Left Column) -->
-		<div id="aside" class="box">
-			<?php include("../application/layouts/partials/aside.php")?>
-		</div> <!-- /aside -->
 
 		<hr class="noscreen" />
 

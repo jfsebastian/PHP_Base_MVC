@@ -107,13 +107,13 @@ function setRequest()
 
 function acl($arrayRequest, $role, $cnx)
 {
-
 	$sql="SELECT resource
 			FROM resources
 			LEFT JOIN roles_has_resources
 					ON resources.idresource=roles_has_resources.resources_idresource
-			WHERE roles_has_resources.roles_idrole=".$role.";";
+			WHERE roles_has_resources.roles_idrole='".$role."';";
 	$resources = query($sql,$cnx);
+	$arrayResources = array();
 	
 	foreach ($resources as $resource)
 	{

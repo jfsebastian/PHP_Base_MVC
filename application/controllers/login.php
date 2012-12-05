@@ -8,20 +8,21 @@ switch($arrayRequest['action'])
 		if($_POST)
 		{
 			loginUser($cnx, $_POST);
-			$content = "Estas autenticado";
-			header("Location: /users/select");
+			header("Location: /users");
+			exit();
 		}
 		else
 			$content = renderView('login/login', array(), $config);
 		break;
 	case 'logout':
-		break;
+		session_destroy();
+		header ("Location: /index");
+		exit();
 	default:
 		break;
 }
 
-$params = array('userName'=>'Agustin',
-				'content'=>$content);
-echo renderLayout("layout_login.php", $params, $config);
+$params = array('content'=>$content);
+echo renderLayout("layout_login", $params, $config);
 
 ?>

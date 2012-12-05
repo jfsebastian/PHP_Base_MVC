@@ -10,5 +10,5 @@ switch($arrayRequest['action'])
 }
 
 $params = array('content'=>$content);
-echo renderLayout("layout_front.php", $params, $config);
+echo renderLayout("layout_front", $params, $config);
 ?>

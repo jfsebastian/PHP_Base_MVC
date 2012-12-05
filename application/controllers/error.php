@@ -14,7 +14,7 @@ switch($arrayRequest['action'])
 		break;
 }
 
-$params = array('userName'=>'NO USER',
+$params = array('userName'=>(isset($_SESSION['name'])?$_SESSION['name']:'Guest'),
 				'content'=>$content);
-echo renderLayout("layout_admin1.php", $params, $config);
+echo renderLayout("layout_admin1", $params, $config);
 ?>

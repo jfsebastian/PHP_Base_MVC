@@ -1,9 +1,5 @@
 <?php
 
-function getuserName()
-{
-}
-
 function loginUser($cnx, $arrayData)
 {
 	$sql = "SELECT iduser, name
@@ -14,8 +10,8 @@ function loginUser($cnx, $arrayData)
 	
 	if(count($user)==1) // algo muy chugo ha sucedido con la BdD
 	{
-		$_SESSION['iduser']=$user[0].iduser;
-		$_SESSION['name']=$user[0].name;
+		$_SESSION['iduser']=$user[0]['iduser'];
+		$_SESSION['name']=$user[0]['name'];
 		return TRUE;
 	}
 	else

@@ -29,44 +29,24 @@
 
 <div id="main">
 
-	<!-- Tray -->
-	<div id="tray" class="box">
-		<?php include("../application/layouts/partials/tray.php")?>
-	</div> <!--  /tray -->
-
 	<hr class="noscreen" />
-
-	<!-- Menu -->
-	<div id="menu" class="box">
-		<?php include("../application/layouts/partials/menu.php")?>
-	</div> <!-- /header -->
 
 	<hr class="noscreen" />
 
 	<!-- Columns -->
 	<div id="cols" class="box">
 
-		<!-- Aside (Left Column) -->
-		<div id="aside" class="box">
-			<?php include("../application/layouts/partials/aside.php")?>
-		</div> <!-- /aside -->
-
 		<hr class="noscreen" />
 
 		<!-- Content (Right Column) -->
 		<div id="content" class="box">
  			<?php //include("../application/layouts/partials/content.php")?>
- 			<?=$params['content']';?>
+ 			<?=$params['content'];?>
 		</div> <!-- /content -->
 
 	</div> <!-- /cols -->
 
 	<hr class="noscreen" />
-
-	<!-- Footer -->
-	<div id="footer" class="box">
-		<?php include("../application/layouts/partials/footer.php")?>
-	</div> <!-- /footer -->
 
 </div> <!-- /main -->
 

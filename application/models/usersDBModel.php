@@ -60,9 +60,9 @@ function readUser($id, $cnx)
 {
 	$sql = "SELECT *
 			FROM users
-			WHERE iduser=".$id.";";
+			WHERE iduser='".$id."';";
 	$arrayUser = query($sql,$cnx);
-	return $arrayUser;
+	return $arrayUser[0];
 }
 
 function insertUser($arrayData, $cnx, $imageName)
