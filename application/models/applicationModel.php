@@ -88,6 +88,8 @@ function setRequest()
 				$_GET['action']=$uri[2];
 			else
 				$_GET['action']='index';
+			if(isset($uri[3]))
+				$_GET['id']=$uri[3];
 		}
 		else
 		{

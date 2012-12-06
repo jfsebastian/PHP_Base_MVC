@@ -16,8 +16,6 @@ else
 
 $arrayRequest = acl($arrayRequest, $user['roles_idrole'], $cnx);
 
-_debug($arrayRequest);
-
 switch($arrayRequest['controller'])
 {
 	case 'login':

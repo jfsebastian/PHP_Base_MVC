@@ -64,6 +64,7 @@ switch($arrayRequest['action'])
 			$content = renderView("users/delete", array(), $config);
 		}
 		break;
+	case 'index':
 	case 'select':
 		$arrayUsers = readUsers($cnx);
 		$params=array('arrayUsers'=>$arrayUsers);

@@ -19,8 +19,8 @@
 			<td><?=nl2br(htmlspecialchars($arrayUsers[$key]['languages']));?></td>
 			<td><?=nl2br(htmlspecialchars($arrayUsers[$key]['photo']));?></td>
 			<td>
-			<a href="/users/update&id=<?=$arrayUsers[$key]['iduser']?>">Editar</a>
-			<a href="/users/delete&id=<?=$arrayUsers[$key]['iduser']?>">Borrar</a>
+			<a href="/users/update/<?=$arrayUsers[$key]['iduser']?>">Editar</a>
+			<a href="/users/delete/<?=$arrayUsers[$key]['iduser']?>">Borrar</a>
 			</td>
 		</tr>
 	<?php endforeach;?>
