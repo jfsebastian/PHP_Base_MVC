@@ -57,8 +57,9 @@ function readConfig($configFile, $context)
  */
 function renderView($view, array $params, $config)
 {
+	echo $_SERVER["DOCUMENT_ROOT"].'/'.$config['viewsDirectory']."/".$view.".php";
 	ob_start();
-	include($config['viewsDirectory']."/".$view.".php");
+	include($_SERVER["DOCUMENT_ROOT"].'/'.$config['viewsDirectory']."/".$view.".php");
 	$content=ob_get_contents();
 	ob_end_clean();
 	return $content;
@@ -66,8 +67,9 @@ function renderView($view, array $params, $config)
 
 function renderLayout($layout, array $params, $config)
 {
+	echo $_SERVER["DOCUMENT_ROOT"].'/'.$config['layoutsDirectory']."/".$layout.".php";
 	ob_start();
-	include($config['layoutsDirectory']."/".$layout.".php");
+	include($_SERVER["DOCUMENT_ROOT"].'/'.$config['layoutsDirectory']."/".$layout.".php");
 	$content=ob_get_contents();
 	ob_end_clean();
 	return $content;

@@ -9,10 +9,15 @@ defined('APPLICATION_PATH')?:
 defined('DOCUMENT_ROOT')?:
 	define ('DOCUMENT_ROOT', $_SERVER['DOCUMENT_ROOT']);
 	
+	
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
+	
 require_once(APPLICATION_PATH."/models/applicationModel.php");
 require_once(APPLICATION_PATH."/models/usersModel.php");
 require_once(APPLICATION_PATH."/models/usersDBModel.php");
-require_once(APPLICATION_PATH."/models/mysqlModel.php");
+//require_once(APPLICATION_PATH."/models/mysqlModel.php");
+require_once(APPLICATION_PATH."/models/pgsqlModel.php");
 require_once(APPLICATION_PATH."/models/debugModel.php");
 require_once(APPLICATION_PATH."/views/helpers/formHelper.php");
 	

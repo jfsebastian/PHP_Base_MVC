@@ -9,12 +9,18 @@ $cnx=connect($config);
 session_start();
 
 $arrayRequest=setRequest();
+
+
+/*
+ * DEACTIVATE ACL
 if(isset($_SESSION['iduser']))
 	$user = readUser($_SESSION['iduser'], $cnx);
 else
 	$user['roles_idrole']='4';
 
 $arrayRequest = acl($arrayRequest, $user['roles_idrole'], $cnx);
+*/
+var_dump($arrayRequest);
 
 switch($arrayRequest['controller'])
 {

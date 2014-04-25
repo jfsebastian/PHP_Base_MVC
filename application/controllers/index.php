@@ -6,6 +6,7 @@ switch($arrayRequest['action'])
 		$content = renderView('index/index', array(), $config);
 		break;
 	default:
+		//$content = 'test';
 		break;
 }
 
